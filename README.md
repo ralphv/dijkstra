@@ -18,6 +18,13 @@ A glorified dijkstra implementation(s) using TypeScript with multiple approaches
 All outputs of the runs go under the temp folder `graphs`. Use the IDE plugin to open plantuml files or copy/paste the
 result of `.puml` into their website.
 
+### Figuring out the next cheapest path
+* There are two data structures that can do that
+  * `HeapRunningCosts`: Uses a heap structure to achieve O(Edge * Log(Vertex))
+  * `SimpleRunningCosts`: Uses an array structure to achieve O(Vertex²)
+
+All entry points can be run using with the env variable `USE_HEAP_STRUCTURE` to use the heap.
+
 ### Graphing support
 
 * I use [PlantUM](https://plantuml.com/download) to enable drawing graphs easily. You need to

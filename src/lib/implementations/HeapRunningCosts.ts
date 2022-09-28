@@ -3,32 +3,47 @@
  */
 import {IRunningCostsDataStructure} from "../interfaces/IRunningCostsDataStructure";
 import {RunningPathCost, Node} from "../typeDefs";
+import {PriorityHeap} from "../PriorityHeap";
 
 /**
  * A heap data structure that determines the cheapest path to take
  */
 export class HeapRunningCosts implements IRunningCostsDataStructure {
-    private data: RunningPathCost[];
+    private heap: PriorityHeap<RunningPathCost>;
+    private visited: { [key: string]: boolean } = {};
 
     constructor() {
-        this.data = [];
+        this.heap = new PriorityHeap<RunningPathCost>((a, b) =>
+            a.cost > b.cost
+        );
     }
 
     add(instance: RunningPathCost): void {
-        this.data.push(instance);
+        this.heap.push(instance);
     }
 
     getNextCheapestPathToTake(): RunningPathCost | undefined {
-        const result = this.data.reduce((currentLowest: undefined | RunningPathCost, instance) => {
-            if (currentLowest === undefined || instance.cost < currentLowest.cost) {
-                currentLowest = instance;
+        // if two paths reach the same node, we would have the longer one still on our heap
+        // we need to ignore that and go past it by the usage of a custom visited hash
+        let peeked = this.heap.peek();
+        if (peeked === undefined) {
+            return undefined
+        }
+        while (this.visited[peeked.to]) {
+            this.heap.pop();
+            peeked = this.heap.peek();
+            if (peeked === undefined) {
+                return undefined
             }
-            return currentLowest;
-        }, undefined);
-        return result === undefined ? undefined : result;
+        }
+        return this.heap.peek();
     }
 
     markNodeVisited(visitedNode: Node): void {
-        this.data = this.data.filter((a) => a.to !== visitedNode);
+        if (visitedNode != this.heap.peek()?.to) {
+            throw new Error("Should only mark the cheapest node");
+        }
+        const node = this.heap.pop() as unknown as RunningPathCost;
+        this.visited[node.to] = true;
     }
 }

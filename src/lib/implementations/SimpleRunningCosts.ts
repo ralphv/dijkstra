@@ -1,8 +1,8 @@
 /**
  * author: Ralph Varjabedian
  */
-import {IRunningCostsDataStructure} from "../interfaces/IRunningCostsDataStructure";
-import {RunningPathCost, Node} from "../typeDefs";
+import { IRunningCostsDataStructure } from "../interfaces/IRunningCostsDataStructure";
+import { RunningPathCost, Node } from "../typeDefs";
 
 /**
  * A simple data structure that determines the cheapest path to take linearly

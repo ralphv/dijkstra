@@ -1,11 +1,14 @@
 /**
  * author: Ralph Varjabedian
  */
-import { Graph } from "./lib/implementations/Graph";
-import { SimpleRunningCosts } from "./lib/implementations/SimpleRunningCosts";
-import { ProcessShortestPath } from "./lib/implementations/ProcessShortestPath";
-import { GraphPlantUMLPrinter } from "./lib/GraphPlantUMLPrinter";
+import {Graph} from "./lib/implementations/Graph";
+import {SimpleRunningCosts} from "./lib/implementations/SimpleRunningCosts";
+import {ProcessShortestPath} from "./lib/implementations/ProcessShortestPath";
+import {GraphPlantUMLPrinter} from "./lib/GraphPlantUMLPrinter";
 import * as fs from "fs";
+import {HeapRunningCosts} from "./lib/implementations/HeapRunningCosts";
+
+console.log(`Running the algorithm with a fixed hardcoded Graph`);
 
 // create a simple graph
 const graph = new Graph<void>(false);
@@ -20,23 +23,24 @@ graph.addNode("6");
 graph.addNode("7");
 graph.addNode("8");
 
-graph.addPath("0", { to: "1", cost: 4 });
-graph.addPath("0", { to: "7", cost: 8 });
-graph.addPath("1", { to: "7", cost: 11 });
-graph.addPath("1", { to: "2", cost: 8 });
-graph.addPath("2", { to: "8", cost: 2 });
-graph.addPath("2", { to: "5", cost: 4 });
-graph.addPath("2", { to: "3", cost: 7 });
-graph.addPath("3", { to: "4", cost: 9 });
-graph.addPath("3", { to: "5", cost: 14 });
-graph.addPath("4", { to: "5", cost: 10 });
-graph.addPath("5", { to: "6", cost: 2 });
-graph.addPath("6", { to: "8", cost: 6 });
-graph.addPath("6", { to: "7", cost: 1 });
-graph.addPath("7", { to: "8", cost: 7 });
+graph.addPath("0", {to: "1", cost: 4});
+graph.addPath("0", {to: "7", cost: 8});
+graph.addPath("1", {to: "7", cost: 11});
+graph.addPath("1", {to: "2", cost: 8});
+graph.addPath("2", {to: "8", cost: 2});
+graph.addPath("2", {to: "5", cost: 4});
+graph.addPath("2", {to: "3", cost: 7});
+graph.addPath("3", {to: "4", cost: 9});
+graph.addPath("3", {to: "5", cost: 14});
+graph.addPath("4", {to: "5", cost: 10});
+graph.addPath("5", {to: "6", cost: 2});
+graph.addPath("6", {to: "8", cost: 6});
+graph.addPath("6", {to: "7", cost: 1});
+graph.addPath("7", {to: "8", cost: 7});
 
 // Create a data structure for running costs
-const runningCosts = new SimpleRunningCosts();
+console.log(`Using ${process.env.USE_HEAP_STRUCTURE ? "Heap structure" : "Linear structure"}`);
+const runningCosts = process.env.USE_HEAP_STRUCTURE ? new HeapRunningCosts() : new SimpleRunningCosts();
 
 // Create the algorithm
 const algorithm = new ProcessShortestPath();

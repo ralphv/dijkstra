@@ -1,8 +1,8 @@
 /**
  * author: Ralph Varjabedian
  */
-import {EOL} from "os";
-import {IPriorityHeap} from "./PriorityHeap";
+import { EOL } from "os";
+import { IPriorityHeap } from "./PriorityHeap";
 
 export class HeapPlantUMLPrinter {
     public static generateContents(heap: IPriorityHeap<number>) {

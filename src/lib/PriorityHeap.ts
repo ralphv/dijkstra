@@ -1,8 +1,7 @@
 /**
  * author: Ralph Varjabedian
  */
-export type PriorityHeapCallback<PriorityHeapNode> =
-    (nodeA: PriorityHeapNode, nodeB: PriorityHeapNode) => boolean;
+export type PriorityHeapCallback<PriorityHeapNode> = (nodeA: PriorityHeapNode, nodeB: PriorityHeapNode) => boolean;
 
 class PriorityHeapNode<PriorityHeapNodeType> {
     node: PriorityHeapNodeType;
@@ -15,7 +14,7 @@ class PriorityHeapNode<PriorityHeapNodeType> {
 }
 
 export interface IPriorityHeap<PriorityHeapNodeType> {
-    describeHeapStructure(): { from: PriorityHeapNodeType, to: PriorityHeapNodeType }[];
+    describeHeapStructure(): { from: PriorityHeapNodeType; to: PriorityHeapNodeType }[];
 }
 
 export class PriorityHeap<PriorityHeapNodeType> implements IPriorityHeap<PriorityHeapNodeType> {
@@ -49,8 +48,8 @@ export class PriorityHeap<PriorityHeapNodeType> implements IPriorityHeap<Priorit
         this.heapify();
     }
 
-    describeHeapStructure(): { from: PriorityHeapNodeType, to: PriorityHeapNodeType }[] {
-        const result: { from: PriorityHeapNodeType, to: PriorityHeapNodeType }[] = [];
+    describeHeapStructure(): { from: PriorityHeapNodeType; to: PriorityHeapNodeType }[] {
+        const result: { from: PriorityHeapNodeType; to: PriorityHeapNodeType }[] = [];
         this._describeHeapStructure(this.tree, result);
         return result;
     }
@@ -95,7 +94,7 @@ export class PriorityHeap<PriorityHeapNodeType> implements IPriorityHeap<Priorit
     }
 
     isEmpty() {
-        return this.tree !== null
+        return this.tree !== null;
     }
 
     private static isLeaf(node: PriorityHeapNode<unknown> | undefined) {
@@ -123,16 +122,15 @@ export class PriorityHeap<PriorityHeapNodeType> implements IPriorityHeap<Priorit
         }
         if (traverse.nextRight !== undefined && traverse.nextLeft !== undefined) {
             // compare right to left first
-            const rightHigher = this.priorityCallback(
-                traverse.nextLeft.node, traverse.nextRight.node);
+            const rightHigher = this.priorityCallback(traverse.nextLeft.node, traverse.nextRight.node);
             if (rightHigher) {
                 this.switchNodes(traverse.nextRight, traverse.nextLeft);
             }
         }
-        if (traverse.nextLeft !== undefined) { // to keep TS happy
+        if (traverse.nextLeft !== undefined) {
+            // to keep TS happy
             // compare left to parent
-            const rightHigher = this.priorityCallback(
-                traverse.node, traverse.nextLeft.node);
+            const rightHigher = this.priorityCallback(traverse.node, traverse.nextLeft.node);
             if (rightHigher) {
                 this.switchNodes(traverse, traverse.nextLeft);
             }
@@ -145,17 +143,19 @@ export class PriorityHeap<PriorityHeapNodeType> implements IPriorityHeap<Priorit
         node2.node = temp;
     }
 
-    private _describeHeapStructure(node: PriorityHeapNode<PriorityHeapNodeType> | undefined, result:
-        { from: PriorityHeapNodeType, to: PriorityHeapNodeType }[]) {
+    private _describeHeapStructure(
+        node: PriorityHeapNode<PriorityHeapNodeType> | undefined,
+        result: { from: PriorityHeapNodeType; to: PriorityHeapNodeType }[],
+    ) {
         if (node === undefined) {
             return;
         }
         if (node.nextLeft) {
-            result.push({from: node.node, to: node.nextLeft.node});
+            result.push({ from: node.node, to: node.nextLeft.node });
             this._describeHeapStructure(node.nextLeft, result);
         }
         if (node.nextRight) {
-            result.push({from: node.node, to: node.nextRight.node});
+            result.push({ from: node.node, to: node.nextRight.node });
             this._describeHeapStructure(node.nextRight, result);
         }
     }

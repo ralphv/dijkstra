@@ -4,9 +4,9 @@
   "author": "Ralph Varjabedian",
   "description": "dijkstra's various implementations for educational purposes",
   "scripts": {
-    "test": "npx nyc mocha -r ts-node/register tests/unit/**/*.ts --exclude tests/unit/**/*.d.ts",
+    "test": "npx nyc mocha --all --include src/** -r ts-node/register tests/**/*.ts",
     "build": "npm run lint && npm run prettier:fix && npm run test && npm run compile",
-    "compile": "rimraf dist && tsc",
+    "compile": "rimraf dist && tsc --project tsconfig.build.json",
     "prettier:fix": "prettier --write 'src/**/*.ts' 'tests/**/*.ts'",
     "lint": "npx eslint ./src --fix"
   },

@@ -6,14 +6,18 @@ import { ProcessShortestPath } from "./lib/implementations/ProcessShortestPath";
 import { GraphPlantUMLPrinter } from "./lib/GraphPlantUMLPrinter";
 import * as fs from "fs";
 import { Graph } from "./lib/implementations/Graph";
+import {HeapRunningCosts} from "./lib/implementations/HeapRunningCosts";
 
 (async () => {
+    console.log(`Running the algorithm with a saved input Graph`);
+
     const graphLoader = new Graph<void>(false);
     const graph = await graphLoader.load("./sample-graphs/graph1.json");
     const firstNode = graph.getNodes()[0];
 
     // Create a data structure for running costs
-    const runningCosts = new SimpleRunningCosts();
+    console.log(`Using ${process.env.USE_HEAP_STRUCTURE ? "Heap structure" : "Linear structure"}`);
+    const runningCosts = process.env.USE_HEAP_STRUCTURE ? new HeapRunningCosts() : new SimpleRunningCosts();
 
     // Create the algorithm
     const algorithm = new ProcessShortestPath();

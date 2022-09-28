@@ -6,20 +6,17 @@
     "emitDecoratorMetadata": true,
     "resolveJsonModule": true,
     "esModuleInterop": true,
+    "sourceRoot": "src",
     "forceConsistentCasingInFileNames": true,
-    "sourceMap": false,
-    "declaration": false,
-    "emitDeclarationOnly": false,
     "outDir": "dist",
     "strict": true,
     "skipLibCheck": true
   },
   "include": [
     "src/**/*",
-    "tests/**/*",
     "src/docs/**/*"
   ],
   "exclude": [
-    "node_modules"
+    "tests/**/*.ts"
   ]
 }

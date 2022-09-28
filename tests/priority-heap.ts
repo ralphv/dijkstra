@@ -2,14 +2,14 @@
  * author: Ralph Varjabedian
  */
 
-import {PriorityHeap} from "../src/lib/PriorityHeap";
-import {expect} from "chai";
-import {HeapPlantUMLPrinter} from "../src/lib/HeapPlantUMLPrinter";
+import { PriorityHeap } from "../src/lib/PriorityHeap";
+import { expect } from "chai";
+import { HeapPlantUMLPrinter } from "../src/lib/HeapPlantUMLPrinter";
 import fs from "fs";
-import {getRandomInt} from "../src/lib/utils";
+import { getRandomInt } from "../src/lib/utils";
 
-describe('Priority Heap', () => {
-    it('simple max heap, three nodes', async () => {
+describe("Priority Heap", () => {
+    it("simple max heap, three nodes", async () => {
         const heap = new PriorityHeap<number>((a, b) => b > a);
 
         heap.push(10);
@@ -19,7 +19,7 @@ describe('Priority Heap', () => {
         heap.push(15);
         expect(heap.peek()).to.equal(15);
     });
-    it('simple min heap, three nodes', async () => {
+    it("simple min heap, three nodes", async () => {
         const heap = new PriorityHeap<number>((a, b) => a > b);
 
         heap.push(10);
@@ -29,7 +29,7 @@ describe('Priority Heap', () => {
         heap.push(15);
         expect(heap.peek()).to.equal(2);
     });
-    it('simple max heap, 10 nodes', async () => {
+    it("simple max heap, 10 nodes", async () => {
         const heap = new PriorityHeap<number>((a, b) => b > a);
 
         heap.push(10);
@@ -69,7 +69,7 @@ describe('Priority Heap', () => {
         expect(heap.pop()).to.equal(undefined);
         expect(heap.isEmpty()).to.equal(true);
     });
-    it('simple min heap, 10 nodes', async () => {
+    it("simple min heap, 10 nodes", async () => {
         const heap = new PriorityHeap<number>((a, b) => a > b);
 
         heap.push(10);
@@ -109,15 +109,15 @@ describe('Priority Heap', () => {
         expect(heap.pop()).to.equal(undefined);
         expect(heap.isEmpty()).to.equal(true);
     });
-    it('simple min heap, random 50 elements', async () => {
-        const valuesOutOfOrder = Array.from({length: 50}, () => getRandomInt(1, 1000));
+    it("simple min heap, random 50 elements", async () => {
+        const valuesOutOfOrder = Array.from({ length: 50 }, () => getRandomInt(1, 1000));
         const valuesInOrder = valuesOutOfOrder.sort((a, b) => a - b);
 
         const heap = new PriorityHeap<number>((a, b) => a > b);
         heap.describeHeapStructure();
 
         // push to heap
-        valuesOutOfOrder.forEach(a => heap.push(a));
+        valuesOutOfOrder.forEach((a) => heap.push(a));
         fs.writeFileSync("./graphs/heap-test-min-random.puml", HeapPlantUMLPrinter.generateContents(heap));
 
         for (let i = 0; i < valuesInOrder.length; i++) {
