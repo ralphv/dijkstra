@@ -4,14 +4,17 @@ import {getRandomInt} from "./utils";
 
 export class GraphGenerator {
     public static generate(minNodes: number, maxNodes: number, minCost: number, maxCost: number, density: number): IGraph<void> {
-        if (density <= 0 || density >= 0.9) {
+        if (density <= 0 || density > 0.9) {
             throw new Error("Density has to be between 0 and 0.9")
         }
         const graph = new Graph<void>(false);
 
         const nodes = getRandomInt(minNodes, maxNodes + 1);
         const minEdges = nodes - 1;
-        const maxEdges = Math.ceil((nodes * (nodes - 1) / 2) * density); // 90%
+        let maxEdges = Math.ceil((nodes * (nodes - 1) / 2) * density);
+        if (maxEdges < minEdges) {
+            maxEdges = minEdges;
+        }
 
         const edges = getRandomInt(minEdges, maxEdges + 1);
 
@@ -30,6 +33,8 @@ export class GraphGenerator {
                 }
             }
         }
+
+        //todo need to ensure there are no disconnected graphs, so need to have a path between all nodes
 
         return graph;
     }

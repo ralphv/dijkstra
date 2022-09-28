@@ -69,7 +69,7 @@ export interface IGraph<MetaType> {
      * Load graph from file
      * @param filename
      */
-    load(filename: string): Promise<void>;
+    load(filename: string): Promise<IGraph<MetaType>>;
 
     /**
      * Save graph into file

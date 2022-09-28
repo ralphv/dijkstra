@@ -5,7 +5,7 @@ import * as fs from "fs";
 import {GraphGenerator} from "./lib/GraphGenerator";
 
 // generate a random graph
-const graph = GraphGenerator.generate(5, 10, 2, 25, 0.5);
+const graph = GraphGenerator.generate(5, 15, 2, 10, 0.7);
 const firstNode = graph.getNodes()[0];
 
 // Create a data structure for running costs

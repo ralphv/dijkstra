@@ -1,10 +1,9 @@
 import {IGraph} from "../interfaces/IGraph";
 import {Path, Node, Edge} from "../typeDefs";
 import fs from "fs";
-import {GraphPlantUMLPrinter} from "../GraphPlantUMLPrinter";
 
 export class Graph<MetaType> implements IGraph<MetaType> {
-    private readonly data: {
+    private data: {
         [key: Node]: {
             meta: MetaType,
             next: { [key: Node]: Path }
@@ -17,13 +16,24 @@ export class Graph<MetaType> implements IGraph<MetaType> {
         this.directed = directed;
     }
 
-    load(filename: string): Promise<void> {
-        throw new Error("Method not implemented.");
+    load(filename: string): Promise<Graph<MetaType>> {
+        return new Promise((resolve, reject) => {
+            fs.readFile(filename, (err, data) => {
+                if (data === undefined) {
+                    throw new Error("Failed to load file");
+                }
+                const json = JSON.parse(data.toString());
+                // todo need to validate structure
+                const newGraph = new Graph<MetaType>(json.directed);
+                newGraph.data = json.data;
+                return err ? reject(err) : resolve(newGraph);
+            });
+        });
     }
 
     save(filename: string): Promise<void> {
         return new Promise((resolve, reject) => {
-            fs.writeFile(filename, JSON.stringify(this.data, null, 2), (err) => {
+            fs.writeFile(filename, JSON.stringify({directed: this.directed, data: this.data}, null, 2), (err) => {
                 return err ? reject(err) : resolve();
             });
         });
