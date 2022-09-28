@@ -2,6 +2,7 @@
   "name": "dijkstra",
   "version": "1.0.0",
   "author": "Ralph Varjabedian",
+  "license": "MIT",
   "description": "dijkstra's various implementations for educational purposes",
   "scripts": {
     "test": "npx nyc mocha --all --include src/** -r ts-node/register tests/**/*.ts",
