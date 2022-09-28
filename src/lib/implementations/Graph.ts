@@ -1,5 +1,5 @@
 import {IGraph} from "../interfaces/IGraph";
-import {Path, Node} from "../typeDefs";
+import {Path, Node, Edge} from "../typeDefs";
 
 export class Graph<MetaType> implements IGraph<MetaType> {
     private readonly data: {
@@ -85,5 +85,33 @@ export class Graph<MetaType> implements IGraph<MetaType> {
             }
         }
         return false;
+    }
+
+    getNodes(): Node[] {
+        return Object.keys(this.data);
+    }
+
+    getAllPaths(directional: boolean): Edge<MetaType>[] {
+        const allEdges = Object.entries(this.data).flatMap(([from, {meta, next}]) => Object.values(next).map(path => ({
+            from,
+            to: path.to,
+            cost: path.cost,
+            meta
+        })));
+
+        if (directional) {
+            return allEdges;
+        }
+
+        return allEdges.reduce(
+            ({unique, result}: { unique: { [key: string]: boolean }, result: Edge<MetaType>[] }, edge) => {
+                const key1 = `${edge.from}:${edge.to}`;
+                const key2 = `${edge.to}:${edge.from}`;
+                if (key1 in unique || key2 in unique) {
+                    return {unique, result};
+                }
+                unique[key1] = unique[key2] = true;
+                return {unique, result: [...result, edge]};
+            }, {unique: {}, result: []}).result;
     }
 }

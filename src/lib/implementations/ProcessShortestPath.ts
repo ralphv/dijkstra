@@ -4,10 +4,11 @@ import {IRunningCostsDataStructure} from "../interfaces/IRunningCostsDataStructu
 import {Node} from "../typeDefs";
 import {Graph} from "./Graph";
 
-export class ProcessShortestPath implements IProcessShortestPath<number> {
-    process(start: Node, graph: IGraph<unknown>, runningCosts: IRunningCostsDataStructure): IGraph<number> {
-        const shortestPathTree = new Graph<number>(true);
-        //*/ add it to result, mark it and fill the adjacent values with their path.
+export type ShortestPathTreeMeta = {cost: number, runningCost: number};
+
+export class ProcessShortestPath implements IProcessShortestPath<ShortestPathTreeMeta> {
+    process(start: Node, graph: IGraph<unknown>, runningCosts: IRunningCostsDataStructure): IGraph<ShortestPathTreeMeta> {
+        const shortestPathTree = new Graph<ShortestPathTreeMeta>(true);
         // add the initial node with zero to the running costs
         runningCosts.add({from: start, to: start, cost: 0});
         // keep track of the last node we visited
@@ -19,7 +20,10 @@ export class ProcessShortestPath implements IProcessShortestPath<number> {
             }
 
             // add new node destination (to) and the path we will travel to it (from -> to) with cost
-            shortestPathTree.addNode(pathToTake.to, pathToTake.cost); //*/ keep running total?
+            shortestPathTree.addNode(pathToTake.to, {
+                cost: pathToTake.cost,
+                runningCost: pathToTake.cost + (shortestPathTree.hasNode(pathToTake.from) ? shortestPathTree.getNodeMeta(pathToTake.from).runningCost : 0)
+            });
             if (pathToTake.cost !== 0) {
                 shortestPathTree.addPath(pathToTake.from, {to: pathToTake.to, cost: pathToTake.cost});
             }

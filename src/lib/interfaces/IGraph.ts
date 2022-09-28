@@ -1,4 +1,4 @@
-import {Node, Path} from "../typeDefs";
+import {Edge, Node, Path} from "../typeDefs";
 
 export interface IGraph<MetaType> {
     /**
@@ -20,6 +20,12 @@ export interface IGraph<MetaType> {
      * @param node The node
      */
     getPathsOfNode(node: Node): Path[];
+
+    /**
+     * Gets the next paths from the given node
+     * @param directional if true, you will get both edges from -> to and to -> from, otherwise just one edge
+     */
+    getAllPaths(directional: boolean): Edge<MetaType>[];
 
     /**
      * Has the node?
@@ -46,4 +52,9 @@ export interface IGraph<MetaType> {
      * @param to the end
      */
     traversePath(from: Node, to: Node): { node: Node, runningCost: number }[] | null;
+
+    /**
+     * Gets the full list of nodes available
+     */
+    getNodes(): Node[];
 }

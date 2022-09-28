@@ -1,6 +1,8 @@
 import {Graph} from "./lib/implementations/Graph";
 import {SimpleRunningCosts} from "./lib/implementations/SimpleRunningCosts";
 import {ProcessShortestPath} from "./lib/implementations/ProcessShortestPath";
+import {GraphPlantUMLPrinter} from "./lib/GraphPlantUMLPrinter";
+import * as fs from "fs";
 
 // create a simple graph
 const graph = new Graph<void>(false);
@@ -30,21 +32,24 @@ graph.addPath("6", {to: "8", cost: 6});
 graph.addPath("6", {to: "7", cost: 1});
 graph.addPath("7", {to: "8", cost: 7});
 
-// create a data structure for running costs
+// Create a data structure for running costs
 const runningCosts = new SimpleRunningCosts();
 
-// create the algorithm
+// Create the algorithm
 const algorithm = new ProcessShortestPath();
 
+// Generate
 const shortestPathTree = algorithm.process("0", graph, runningCosts);
-// print the results
 
+// Print sample path traversals
 [
     ["0", "8"],
     ["0", "4"],
     ["0", "1"],
     ["0", "6"],
     ["0", "7"],
+    ["6", "4"],
+    ["1", "6"],
 ].forEach(([from, to]) => {
     const path = shortestPathTree.traversePath(from, to);
     if (!path) {
@@ -53,5 +58,8 @@ const shortestPathTree = algorithm.process("0", graph, runningCosts);
         console.log(`Path from [${from}] => [${to}]: ${JSON.stringify(path)}`);
     }
 });
+
+fs.writeFileSync("./graphs/appPrim-input-graph.puml", GraphPlantUMLPrinter.generateContents("0", graph, false));
+fs.writeFileSync("./graphs/appPrim-min-spanning-tree.puml", GraphPlantUMLPrinter.generateContents("0", shortestPathTree, true));
 
 
