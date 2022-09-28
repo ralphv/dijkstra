@@ -1,5 +1,7 @@
 # dijkstra TS
 
+![Sample Graph](resources/img.png?raw=true "Sample Graph")
+
 A glorified `dijkstra` implementation(s) using `TypeScript` with multiple data structures.
 
 This repo is for educational purposes. Graphs can be easily visualized using [PlantUML](https://plantuml.com/). 
