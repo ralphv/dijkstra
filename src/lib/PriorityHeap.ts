@@ -49,30 +49,62 @@ export class PriorityHeap<PriorityHeapNodeType> implements IPriorityHeap<Priorit
         this.heapify();
     }
 
-    peekPriorityNode(): PriorityHeapNodeType | undefined {
-        return this.tree?.node;
-    }
-
     describeHeapStructure(): { from: PriorityHeapNodeType, to: PriorityHeapNodeType }[] {
         const result: { from: PriorityHeapNodeType, to: PriorityHeapNodeType }[] = [];
         this._describeHeapStructure(this.tree, result);
         return result;
     }
 
-    /*pop(node: PriorityHeapNodeType) {
-
+    peek(): PriorityHeapNodeType | undefined {
+        return this.tree?.node;
     }
 
-    popPriorityNode() {
-
+    pop(): PriorityHeapNodeType | undefined {
+        if (this.tree === undefined) {
+            return undefined;
+        }
+        if (PriorityHeap.isLeaf(this.tree)) {
+            const node = this.tree.node;
+            this.tree = undefined;
+            return node;
+        }
+        const node = this.tree.node;
+        const queue: PriorityHeapNode<PriorityHeapNodeType>[] = [];
+        queue.push(this.tree);
+        while (queue.length !== 0) {
+            const currentNode = queue.shift() as PriorityHeapNode<PriorityHeapNodeType>;
+            if (currentNode.nextRight !== undefined && PriorityHeap.isLeaf(currentNode.nextRight)) {
+                this.switchNodes(currentNode.nextRight, this.tree);
+                currentNode.nextRight = undefined;
+                break;
+            }
+            if (currentNode.nextLeft !== undefined && PriorityHeap.isLeaf(currentNode.nextLeft)) {
+                this.switchNodes(currentNode.nextLeft, this.tree);
+                currentNode.nextLeft = undefined;
+                break;
+            }
+            if (currentNode.nextRight !== undefined) {
+                queue.push(currentNode.nextRight);
+            }
+            if (currentNode.nextLeft !== undefined) {
+                queue.push(currentNode.nextLeft);
+            }
+        }
+        this.heapify();
+        return node;
     }
 
     isEmpty() {
         return this.tree !== null
-    }*/
+    }
+
+    private static isLeaf(node: PriorityHeapNode<unknown> | undefined) {
+        return node !== undefined && node.nextLeft === undefined && node.nextRight === undefined;
+    }
 
     private heapify(): void {
         if (this.tree === undefined) {
+            /* istanbul ignore next */
             return;
         }
         this._heapify(this.tree);
