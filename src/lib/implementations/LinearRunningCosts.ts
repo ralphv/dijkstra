@@ -8,7 +8,7 @@ import { RunningPathCost, Node } from "../typeDefs";
  * A simple data structure that determines the cheapest path to take linearly
  * i.e. scans the array
  */
-export class SimpleRunningCosts implements IRunningCostsDataStructure {
+export class LinearRunningCosts implements IRunningCostsDataStructure {
     private data: RunningPathCost[];
 
     constructor() {

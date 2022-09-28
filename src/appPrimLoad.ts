@@ -1,7 +1,7 @@
 /**
  * author: Ralph Varjabedian
  */
-import { SimpleRunningCosts } from "./lib/implementations/SimpleRunningCosts";
+import { LinearRunningCosts } from "./lib/implementations/LinearRunningCosts";
 import { ProcessShortestPath } from "./lib/implementations/ProcessShortestPath";
 import { GraphPlantUMLPrinter } from "./lib/GraphPlantUMLPrinter";
 import * as fs from "fs";
@@ -17,7 +17,7 @@ import {HeapRunningCosts} from "./lib/implementations/HeapRunningCosts";
 
     // Create a data structure for running costs
     console.log(`Using ${process.env.USE_HEAP_STRUCTURE ? "Heap structure" : "Linear structure"}`);
-    const runningCosts = process.env.USE_HEAP_STRUCTURE ? new HeapRunningCosts() : new SimpleRunningCosts();
+    const runningCosts = process.env.USE_HEAP_STRUCTURE ? new HeapRunningCosts() : new LinearRunningCosts();
 
     // Create the algorithm
     const algorithm = new ProcessShortestPath();
