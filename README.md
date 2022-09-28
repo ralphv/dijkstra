@@ -2,7 +2,7 @@
 
 A glorified `dijkstra` implementation(s) using `TypeScript` with multiple data structures.
 
-This repo is for educational purposes. Graphs can be easily visualized using [PlantUML](https://plantuml.com/) 
+This repo is for educational purposes. Graphs can be easily visualized using [PlantUML](https://plantuml.com/). 
 
 ### Setup
 
@@ -13,7 +13,7 @@ This repo is for educational purposes. Graphs can be easily visualized using [Pl
 ### The entry points
 
 * `appPrim.ts` creates a predetermined graph and generates the minimum spanning graph and then traverses several use
-  cases with the shortest path
+  cases with the shortest path.
 * `appPrimLoad.ts` This variant loads `./sample-graphs/graph1.json` as the input graph. You can load other samples as well.
 * `appPrimRandom.ts` This variant generates a random input graph.
 
@@ -32,4 +32,4 @@ All entry points can be run using with the env variable `USE_HEAP_STRUCTURE` to 
 ### Graphing support
 
 * I use [PlantUM](https://plantuml.com/download) to enable drawing graphs easily. You need to
-  have [GraphViz](https://plantuml.com/graphviz-dot)
+  have [GraphViz](https://plantuml.com/graphviz-dot).
