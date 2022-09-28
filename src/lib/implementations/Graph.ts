@@ -1,5 +1,7 @@
 import {IGraph} from "../interfaces/IGraph";
 import {Path, Node, Edge} from "../typeDefs";
+import fs from "fs";
+import {GraphPlantUMLPrinter} from "../GraphPlantUMLPrinter";
 
 export class Graph<MetaType> implements IGraph<MetaType> {
     private readonly data: {
@@ -13,6 +15,18 @@ export class Graph<MetaType> implements IGraph<MetaType> {
     constructor(directed: boolean) {
         this.data = {};
         this.directed = directed;
+    }
+
+    load(filename: string): Promise<void> {
+        throw new Error("Method not implemented.");
+    }
+
+    save(filename: string): Promise<void> {
+        return new Promise((resolve, reject) => {
+            fs.writeFile(filename, JSON.stringify(this.data, null, 2), (err) => {
+                return err ? reject(err) : resolve();
+            });
+        });
     }
 
     traversePath(from: string, to: string): { node: string; runningCost: number; }[] | null {
@@ -113,5 +127,10 @@ export class Graph<MetaType> implements IGraph<MetaType> {
                 unique[key1] = unique[key2] = true;
                 return {unique, result: [...result, edge]};
             }, {unique: {}, result: []}).result;
+    }
+
+    hasPath(from: Node, to: Node): boolean {
+        this.assertNodeExists(from);
+        return Object.values(this.data[from].next).some(a => a.to === to);
     }
 }

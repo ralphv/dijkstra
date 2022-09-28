@@ -1,0 +1,26 @@
+import {SimpleRunningCosts} from "./lib/implementations/SimpleRunningCosts";
+import {ProcessShortestPath} from "./lib/implementations/ProcessShortestPath";
+import {GraphPlantUMLPrinter} from "./lib/GraphPlantUMLPrinter";
+import * as fs from "fs";
+import {GraphGenerator} from "./lib/GraphGenerator";
+
+// generate a random graph
+const graph = GraphGenerator.generate(5, 10, 2, 25, 0.5);
+const firstNode = graph.getNodes()[0];
+
+// Create a data structure for running costs
+const runningCosts = new SimpleRunningCosts();
+
+// Create the algorithm
+const algorithm = new ProcessShortestPath();
+
+// Generate
+const shortestPathTree = algorithm.process(firstNode, graph, runningCosts);
+
+(async () => {
+    await graph.save("./graphs/appPrimRandom-graph.json");
+    fs.writeFileSync("./graphs/appPrimRandom-input-graph.puml", GraphPlantUMLPrinter.generateContents(firstNode, graph, false));
+    fs.writeFileSync("./graphs/appPrimRandom-min-spanning-tree.puml", GraphPlantUMLPrinter.generateContents(firstNode, shortestPathTree, true));
+})();
+
+

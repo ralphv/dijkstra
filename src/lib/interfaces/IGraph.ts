@@ -34,6 +34,13 @@ export interface IGraph<MetaType> {
     hasNode(node: Node): boolean;
 
     /**
+     * Has the path?
+     * @param from
+     * @param to
+     */
+    hasPath(from: Node, to: Node): boolean;
+
+    /**
      * Gets the node meta data
      * @param node
      */
@@ -57,4 +64,16 @@ export interface IGraph<MetaType> {
      * Gets the full list of nodes available
      */
     getNodes(): Node[];
+
+    /**
+     * Load graph from file
+     * @param filename
+     */
+    load(filename: string): Promise<void>;
+
+    /**
+     * Save graph into file
+     * @param filename
+     */
+    save(filename: string): Promise<void>;
 }
