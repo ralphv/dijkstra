@@ -1,7 +1,7 @@
-import {Graph} from "./lib/implementations/Graph";
-import {SimpleRunningCosts} from "./lib/implementations/SimpleRunningCosts";
-import {ProcessShortestPath} from "./lib/implementations/ProcessShortestPath";
-import {GraphPlantUMLPrinter} from "./lib/GraphPlantUMLPrinter";
+import { Graph } from "./lib/implementations/Graph";
+import { SimpleRunningCosts } from "./lib/implementations/SimpleRunningCosts";
+import { ProcessShortestPath } from "./lib/implementations/ProcessShortestPath";
+import { GraphPlantUMLPrinter } from "./lib/GraphPlantUMLPrinter";
 import * as fs from "fs";
 
 // create a simple graph
@@ -17,20 +17,20 @@ graph.addNode("6");
 graph.addNode("7");
 graph.addNode("8");
 
-graph.addPath("0", {to: "1", cost: 4});
-graph.addPath("0", {to: "7", cost: 8});
-graph.addPath("1", {to: "7", cost: 11});
-graph.addPath("1", {to: "2", cost: 8});
-graph.addPath("2", {to: "8", cost: 2});
-graph.addPath("2", {to: "5", cost: 4});
-graph.addPath("2", {to: "3", cost: 7});
-graph.addPath("3", {to: "4", cost: 9});
-graph.addPath("3", {to: "5", cost: 14});
-graph.addPath("4", {to: "5", cost: 10});
-graph.addPath("5", {to: "6", cost: 2});
-graph.addPath("6", {to: "8", cost: 6});
-graph.addPath("6", {to: "7", cost: 1});
-graph.addPath("7", {to: "8", cost: 7});
+graph.addPath("0", { to: "1", cost: 4 });
+graph.addPath("0", { to: "7", cost: 8 });
+graph.addPath("1", { to: "7", cost: 11 });
+graph.addPath("1", { to: "2", cost: 8 });
+graph.addPath("2", { to: "8", cost: 2 });
+graph.addPath("2", { to: "5", cost: 4 });
+graph.addPath("2", { to: "3", cost: 7 });
+graph.addPath("3", { to: "4", cost: 9 });
+graph.addPath("3", { to: "5", cost: 14 });
+graph.addPath("4", { to: "5", cost: 10 });
+graph.addPath("5", { to: "6", cost: 2 });
+graph.addPath("6", { to: "8", cost: 6 });
+graph.addPath("6", { to: "7", cost: 1 });
+graph.addPath("7", { to: "8", cost: 7 });
 
 // Create a data structure for running costs
 const runningCosts = new SimpleRunningCosts();
@@ -60,6 +60,7 @@ const shortestPathTree = algorithm.process("0", graph, runningCosts);
 });
 
 fs.writeFileSync("./graphs/appPrim-input-graph.puml", GraphPlantUMLPrinter.generateContents("0", graph, false));
-fs.writeFileSync("./graphs/appPrim-min-spanning-tree.puml", GraphPlantUMLPrinter.generateContents("0", shortestPathTree, true));
-
-
+fs.writeFileSync(
+    "./graphs/appPrim-min-spanning-tree.puml",
+    GraphPlantUMLPrinter.generateContents("0", shortestPathTree, true),
+);

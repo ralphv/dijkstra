@@ -1,8 +1,8 @@
-import {SimpleRunningCosts} from "./lib/implementations/SimpleRunningCosts";
-import {ProcessShortestPath} from "./lib/implementations/ProcessShortestPath";
-import {GraphPlantUMLPrinter} from "./lib/GraphPlantUMLPrinter";
+import { SimpleRunningCosts } from "./lib/implementations/SimpleRunningCosts";
+import { ProcessShortestPath } from "./lib/implementations/ProcessShortestPath";
+import { GraphPlantUMLPrinter } from "./lib/GraphPlantUMLPrinter";
 import * as fs from "fs";
-import {Graph} from "./lib/implementations/Graph";
+import { Graph } from "./lib/implementations/Graph";
 
 (async () => {
     const graphLoader = new Graph<void>(false);
@@ -18,8 +18,12 @@ import {Graph} from "./lib/implementations/Graph";
     // Generate
     const shortestPathTree = algorithm.process(firstNode, graph, runningCosts);
 
-    fs.writeFileSync("./graphs/appPrimLoad-input-graph.puml", GraphPlantUMLPrinter.generateContents(firstNode, graph, false));
-    fs.writeFileSync("./graphs/appPrimLoad-min-spanning-tree.puml", GraphPlantUMLPrinter.generateContents(firstNode, shortestPathTree, true));
+    fs.writeFileSync(
+        "./graphs/appPrimLoad-input-graph.puml",
+        GraphPlantUMLPrinter.generateContents(firstNode, graph, false),
+    );
+    fs.writeFileSync(
+        "./graphs/appPrimLoad-min-spanning-tree.puml",
+        GraphPlantUMLPrinter.generateContents(firstNode, shortestPathTree, true),
+    );
 })();
-
-

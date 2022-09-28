@@ -1,6 +1,6 @@
-import {IGraph} from "../interfaces/IGraph";
-import {IRunningCostsDataStructure} from "../interfaces/IRunningCostsDataStructure";
-import {Node} from "../typeDefs";
+import { IGraph } from "../interfaces/IGraph";
+import { IRunningCostsDataStructure } from "../interfaces/IRunningCostsDataStructure";
+import { Node } from "../typeDefs";
 
 export interface IProcessShortestPath<MetaType> {
     /**

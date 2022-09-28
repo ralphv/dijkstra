@@ -1,17 +1,23 @@
-import {Graph} from "./implementations/Graph";
-import {IGraph} from "./interfaces/IGraph";
-import {getRandomInt} from "./utils";
+import { Graph } from "./implementations/Graph";
+import { IGraph } from "./interfaces/IGraph";
+import { getRandomInt } from "./utils";
 
 export class GraphGenerator {
-    public static generate(minNodes: number, maxNodes: number, minCost: number, maxCost: number, density: number): IGraph<void> {
+    public static generate(
+        minNodes: number,
+        maxNodes: number,
+        minCost: number,
+        maxCost: number,
+        density: number,
+    ): IGraph<void> {
         if (density <= 0 || density > 0.9) {
-            throw new Error("Density has to be between 0 and 0.9")
+            throw new Error("Density has to be between 0 and 0.9");
         }
         const graph = new Graph<void>(false);
 
         const nodes = getRandomInt(minNodes, maxNodes + 1);
         const minEdges = nodes - 1;
-        let maxEdges = Math.ceil((nodes * (nodes - 1) / 2) * density);
+        let maxEdges = Math.ceil(((nodes * (nodes - 1)) / 2) * density);
         if (maxEdges < minEdges) {
             maxEdges = minEdges;
         }
@@ -28,7 +34,7 @@ export class GraphGenerator {
                 const to = getRandomInt(1, nodes + 1).toString();
 
                 if (from !== to && !graph.hasPath(from, to)) {
-                    graph.addPath(from, {to, cost: getRandomInt(minCost, maxCost + 1)});
+                    graph.addPath(from, { to, cost: getRandomInt(minCost, maxCost + 1) });
                     break;
                 }
             }

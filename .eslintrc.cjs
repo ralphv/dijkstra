@@ -15,10 +15,7 @@ module.exports = {
     rules: {
         "@typescript-eslint/ban-ts-comment": "off",
         "@typescript-eslint/require-await": "off",
-        // allow any easily
-        "@typescript-eslint/no-explicit-any": "off",
-        "@typescript-eslint/no-unsafe-assignment": "off",
-        "@typescript-eslint/no-unsafe-return": "off",
-        "@typescript-eslint/no-unsafe-argument": "off",
+        "no-constant-condition": "off",
+        "@typescript-eslint/no-floating-promises": "off"
     }
 };

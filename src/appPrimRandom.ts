@@ -1,8 +1,8 @@
-import {SimpleRunningCosts} from "./lib/implementations/SimpleRunningCosts";
-import {ProcessShortestPath} from "./lib/implementations/ProcessShortestPath";
-import {GraphPlantUMLPrinter} from "./lib/GraphPlantUMLPrinter";
+import { SimpleRunningCosts } from "./lib/implementations/SimpleRunningCosts";
+import { ProcessShortestPath } from "./lib/implementations/ProcessShortestPath";
+import { GraphPlantUMLPrinter } from "./lib/GraphPlantUMLPrinter";
 import * as fs from "fs";
-import {GraphGenerator} from "./lib/GraphGenerator";
+import { GraphGenerator } from "./lib/GraphGenerator";
 
 // generate a random graph
 const graph = GraphGenerator.generate(5, 15, 2, 10, 0.7);
@@ -19,8 +19,12 @@ const shortestPathTree = algorithm.process(firstNode, graph, runningCosts);
 
 (async () => {
     await graph.save("./graphs/appPrimRandom-graph.json");
-    fs.writeFileSync("./graphs/appPrimRandom-input-graph.puml", GraphPlantUMLPrinter.generateContents(firstNode, graph, false));
-    fs.writeFileSync("./graphs/appPrimRandom-min-spanning-tree.puml", GraphPlantUMLPrinter.generateContents(firstNode, shortestPathTree, true));
+    fs.writeFileSync(
+        "./graphs/appPrimRandom-input-graph.puml",
+        GraphPlantUMLPrinter.generateContents(firstNode, graph, false),
+    );
+    fs.writeFileSync(
+        "./graphs/appPrimRandom-min-spanning-tree.puml",
+        GraphPlantUMLPrinter.generateContents(firstNode, shortestPathTree, true),
+    );
 })();
-
-

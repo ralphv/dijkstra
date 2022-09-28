@@ -6,7 +6,7 @@
   "scripts": {
     "test": "npx nyc mocha -r ts-node/register tests/unit/**/*.ts --exclude tests/unit/**/*.d.ts",
     "build": "npm run lint && npm run prettier:fix && npm run test && npm run compile",
-    "compile": "rimraf dist && tsc && rm -r .nyc_output",
+    "compile": "rimraf dist && tsc",
     "prettier:fix": "prettier --write 'src/**/*.ts' 'tests/**/*.ts'",
     "lint": "npx eslint ./src --fix"
   },

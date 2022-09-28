@@ -1,4 +1,4 @@
-import {Node, RunningPathCost} from "../typeDefs";
+import { Node, RunningPathCost } from "../typeDefs";
 
 export interface IRunningCostsDataStructure {
     /**

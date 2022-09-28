@@ -1,5 +1,5 @@
-import {IRunningCostsDataStructure} from "../interfaces/IRunningCostsDataStructure";
-import {RunningPathCost, Node} from "../typeDefs";
+import { IRunningCostsDataStructure } from "../interfaces/IRunningCostsDataStructure";
+import { RunningPathCost, Node } from "../typeDefs";
 
 export class SimpleRunningCosts implements IRunningCostsDataStructure {
     private data: RunningPathCost[];
@@ -23,6 +23,6 @@ export class SimpleRunningCosts implements IRunningCostsDataStructure {
     }
 
     markNodeVisited(visitedNode: Node): void {
-        this.data = this.data.filter(a => a.to !== visitedNode);
+        this.data = this.data.filter((a) => a.to !== visitedNode);
     }
 }
