@@ -1,3 +1,6 @@
+/**
+ * author: Ralph Varjabedian
+ */
 import { IProcessShortestPath } from "./IProcessShortestPath";
 import { IGraph } from "../interfaces/IGraph";
 import { IRunningCostsDataStructure } from "../interfaces/IRunningCostsDataStructure";

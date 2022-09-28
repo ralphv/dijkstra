@@ -1,3 +1,6 @@
+/**
+ * author: Ralph Varjabedian
+ */
 import { Edge, Node, Path } from "../typeDefs";
 
 export interface IGraph<MetaType> {

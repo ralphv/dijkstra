@@ -1,3 +1,6 @@
+/**
+ * author: Ralph Varjabedian
+ */
 import { Graph } from "./implementations/Graph";
 import { IGraph } from "./interfaces/IGraph";
 import { getRandomInt } from "./utils";

@@ -1,3 +1,6 @@
+/**
+ * author: Ralph Varjabedian
+ */
 import { Graph } from "./lib/implementations/Graph";
 import { SimpleRunningCosts } from "./lib/implementations/SimpleRunningCosts";
 import { ProcessShortestPath } from "./lib/implementations/ProcessShortestPath";

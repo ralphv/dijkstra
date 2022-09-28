@@ -1,3 +1,6 @@
+/**
+ * author: Ralph Varjabedian
+ */
 // Basic types
 export type Cost = number;
 export type Node = string;

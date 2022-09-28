@@ -1,3 +1,6 @@
+/**
+ * author: Ralph Varjabedian
+ */
 import {IGraph} from "./interfaces/IGraph";
 import {Node} from "./typeDefs";
 import {EOL} from "os";

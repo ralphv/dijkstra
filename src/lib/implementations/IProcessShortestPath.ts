@@ -1,3 +1,6 @@
+/**
+ * author: Ralph Varjabedian
+ */
 import { IGraph } from "../interfaces/IGraph";
 import { IRunningCostsDataStructure } from "../interfaces/IRunningCostsDataStructure";
 import { Node } from "../typeDefs";

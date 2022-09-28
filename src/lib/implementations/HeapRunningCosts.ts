@@ -5,10 +5,9 @@ import {IRunningCostsDataStructure} from "../interfaces/IRunningCostsDataStructu
 import {RunningPathCost, Node} from "../typeDefs";
 
 /**
- * A simple data structure that determines the cheapest path to take linearly
- * i.e. scans the array
+ * A heap data structure that determines the cheapest path to take
  */
-export class SimpleRunningCosts implements IRunningCostsDataStructure {
+export class HeapRunningCosts implements IRunningCostsDataStructure {
     private data: RunningPathCost[];
 
     constructor() {

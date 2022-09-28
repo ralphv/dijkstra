@@ -1,3 +1,6 @@
+/**
+ * author: Ralph Varjabedian
+ */
 import { IGraph } from "../interfaces/IGraph";
 import { Path, Node, Edge } from "../typeDefs";
 import fs from "fs";

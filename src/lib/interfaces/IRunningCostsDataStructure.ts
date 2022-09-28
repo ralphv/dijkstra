@@ -1,3 +1,6 @@
+/**
+ * author: Ralph Varjabedian
+ */
 import { Node, RunningPathCost } from "../typeDefs";
 
 export interface IRunningCostsDataStructure {

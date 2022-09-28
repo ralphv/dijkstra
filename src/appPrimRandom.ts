@@ -1,3 +1,6 @@
+/**
+ * author: Ralph Varjabedian
+ */
 import { SimpleRunningCosts } from "./lib/implementations/SimpleRunningCosts";
 import { ProcessShortestPath } from "./lib/implementations/ProcessShortestPath";
 import { GraphPlantUMLPrinter } from "./lib/GraphPlantUMLPrinter";
