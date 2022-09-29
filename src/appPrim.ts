@@ -39,8 +39,11 @@ graph.addPath("6", {to: "7", cost: 1});
 graph.addPath("7", {to: "8", cost: 7});
 
 // Create a data structure for running costs
-console.log(`Using ${process.env.USE_HEAP_STRUCTURE ? "Heap structure" : "Linear structure"}`);
-const runningCosts = process.env.USE_HEAP_STRUCTURE ? new HeapRunningCosts() : new LinearRunningCosts();
+const useHeap = process.env.USE_HEAP_STRUCTURE === "TRUE";
+const findLongestPath = useHeap && process.env.FIND_LONGEST_PATH === "TRUE";
+console.log(`Using ${useHeap ? "Heap structure" : "Linear structure"}`);
+const runningCosts = useHeap ? new HeapRunningCosts(!findLongestPath) : new LinearRunningCosts();
+
 
 // Create the algorithm
 const algorithm = new ProcessShortestPath();
@@ -68,6 +71,6 @@ const shortestPathTree = algorithm.process("0", graph, runningCosts);
 
 fs.writeFileSync("./graphs/appPrim-input-graph.puml", GraphPlantUMLPrinter.generateContents("0", graph, false));
 fs.writeFileSync(
-    "./graphs/appPrim-min-spanning-tree.puml",
+    `./graphs/appPrim-${findLongestPath ? "max" : "min"}-spanning-tree.puml`,
     GraphPlantUMLPrinter.generateContents("0", shortestPathTree, true),
 );

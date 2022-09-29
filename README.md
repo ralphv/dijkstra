@@ -17,6 +17,7 @@ This repo is for educational purposes. Graphs can be easily visualized using [Pl
 * `appPrim.ts` creates a predetermined graph and generates the minimum spanning graph and then traverses several use
   cases with the shortest path.
 * `appPrimLoad.ts` This variant loads `./sample-graphs/graph1.json` as the input graph. You can load other samples as well.
+Have a look inside `./sample-graphs`
 * `appPrimRandom.ts` This variant generates a random input graph.
 
 All outputs of the runs go under the temp folder `graphs`. Use the IDE plugin to open plantuml files or copy/paste the
@@ -29,7 +30,10 @@ Each entry point, when run, generates it's input/mst graphs under `./graphs`.
   * `HeapRunningCosts`: Uses a heap structure to achieve O(Edge * Log(Vertex))
   * `LinearRunningCosts`: Uses an array structure to achieve O(Vertex²)
 
-All entry points can be run using with the env variable `USE_HEAP_STRUCTURE` to use the heap.
+All entry points can be run using with the env variable `USE_HEAP_STRUCTURE=TRUE` to use the heap.
+
+If using the heap, you can optionally use `FIND_LONGEST_PATH=TRUE` to use max heap. 
+This will find the `longest path` instead of the `shortest path`
 
 ### Graphing support
 

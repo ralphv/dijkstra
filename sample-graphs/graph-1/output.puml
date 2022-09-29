@@ -1,0 +1,23 @@
+@startdot
+digraph a {
+    fontname="Helvetica,Arial,sans-serif"
+    node [fontname="Helvetica,Arial,sans-serif"]
+    edge [fontname="Helvetica,Arial,sans-serif"]
+    rankdir=LR;
+    node [shape = circle];
+    edge[arrowhead="normal"];
+    1 -> 7 [label = "2", minlen=1];
+    1 -> 11 [label = "3", minlen=2];
+    2 -> 13 [label = "2", minlen=1];
+    3 -> 9 [label = "3", minlen=2];
+    5 -> 6 [label = "5", minlen=4];
+    7 -> 2 [label = "2", minlen=1];
+    7 -> 10 [label = "2", minlen=1];
+    7 -> 12 [label = "5", minlen=4];
+    9 -> 8 [label = "6", minlen=5];
+    11 -> 15 [label = "4", minlen=3];
+    13 -> 5 [label = "2", minlen=1];
+    15 -> 3 [label = "6", minlen=5];
+    15 -> 14 [label = "10", minlen=6];
+}
+@enddot
