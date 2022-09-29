@@ -1,5 +1,10 @@
 @startdot
 digraph a {
+    label = "Graph-3: input"
+    labelloc  =  t
+    fontsize  = 30
+    fontcolor = blue
+
     fontname="Helvetica,Arial,sans-serif"
     node [fontname="Helvetica,Arial,sans-serif"]
     edge [fontname="Helvetica,Arial,sans-serif"]

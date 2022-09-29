@@ -1,5 +1,10 @@
-@startdot
+@startuml
 digraph a {
+    label = "Graph-1: input"
+    labelloc  =  t
+    fontsize  = 30
+    fontcolor = blue
+
     fontname="Helvetica,Arial,sans-serif"
     node [fontname="Helvetica,Arial,sans-serif"]
     edge [fontname="Helvetica,Arial,sans-serif"]
@@ -27,4 +32,4 @@ digraph a {
     11 -> 15 [label = "4", minlen=3];
     14 -> 15 [label = "10", minlen=8];
 }
-@enddot
+@enduml

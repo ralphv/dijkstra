@@ -1,5 +1,10 @@
 @startdot
 digraph a {
+    label = "Two edges with same weight"
+    labelloc  =  t
+    fontsize  = 15
+    fontcolor = blue
+
     fontname="Helvetica,Arial,sans-serif"
     node [fontname="Helvetica,Arial,sans-serif"]
     edge [fontname="Helvetica,Arial,sans-serif"]
