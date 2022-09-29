@@ -1,6 +1,6 @@
 @startdot
 digraph a {
-    label = "Two edges with same weight: max-spawn-tree"
+    label = "Two edges with same weight: min-spawn-tree"
     labelloc  =  t
     fontsize  = 15
     fontcolor = blue
