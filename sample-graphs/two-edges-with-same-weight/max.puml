@@ -1,0 +1,13 @@
+@startdot
+digraph a {
+    fontname="Helvetica,Arial,sans-serif"
+    node [fontname="Helvetica,Arial,sans-serif"]
+    edge [fontname="Helvetica,Arial,sans-serif"]
+    rankdir=LR;
+    node [shape = circle];
+    edge[arrowhead="normal"];
+    A -> B [label = "1", minlen=1];
+    B -> D [label = "5", minlen=3];
+    D -> C [label = "3", minlen=2];
+}
+@enddot
