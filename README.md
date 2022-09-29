@@ -35,7 +35,8 @@ If using the heap, you can optionally use `FIND_LONGEST_PATH=TRUE` to use max he
 This will find the `longest path` instead of the `shortest path`
 
 ### Samples
-* [Samples](docs/SAMPLES.md): Checkout the samples.
+
+[Checkout the samples.](docs/SAMPLES.md)
 
 ### Graphing support
 
