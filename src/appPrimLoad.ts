@@ -6,7 +6,7 @@ import { ProcessShortestPath } from "./lib/implementations/ProcessShortestPath";
 import { GraphPlantUMLPrinter } from "./lib/GraphPlantUMLPrinter";
 import * as fs from "fs";
 import { Graph } from "./lib/implementations/Graph";
-import {HeapRunningCosts} from "./lib/implementations/HeapRunningCosts";
+import { HeapRunningCosts } from "./lib/implementations/HeapRunningCosts";
 
 (async () => {
     console.log(`Running the algorithm with a saved input Graph`);

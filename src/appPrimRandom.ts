@@ -1,12 +1,12 @@
 /**
  * author: Ralph Varjabedian
  */
-import {LinearRunningCosts} from "./lib/implementations/LinearRunningCosts";
-import {ProcessShortestPath} from "./lib/implementations/ProcessShortestPath";
-import {GraphPlantUMLPrinter} from "./lib/GraphPlantUMLPrinter";
+import { LinearRunningCosts } from "./lib/implementations/LinearRunningCosts";
+import { ProcessShortestPath } from "./lib/implementations/ProcessShortestPath";
+import { GraphPlantUMLPrinter } from "./lib/GraphPlantUMLPrinter";
 import * as fs from "fs";
-import {GraphGenerator} from "./lib/GraphGenerator";
-import {HeapRunningCosts} from "./lib/implementations/HeapRunningCosts";
+import { GraphGenerator } from "./lib/GraphGenerator";
+import { HeapRunningCosts } from "./lib/implementations/HeapRunningCosts";
 
 console.log(`Running the algorithm with a randomly generated input Graph`);
 
@@ -19,7 +19,6 @@ const useHeap = process.env.USE_HEAP_STRUCTURE === "TRUE";
 const findLongestPath = useHeap && process.env.FIND_LONGEST_PATH === "TRUE";
 console.log(`Using ${useHeap ? "Heap structure" : "Linear structure"}`);
 const runningCosts = useHeap ? new HeapRunningCosts(!findLongestPath) : new LinearRunningCosts();
-
 
 // Create the algorithm
 const algorithm = new ProcessShortestPath();

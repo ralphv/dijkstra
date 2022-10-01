@@ -21,11 +21,11 @@ export class PriorityHeap<PriorityHeapNodeType> implements IPriorityHeap<Priorit
     }
 
     private static left(i: number): number {
-        return (2 * i) + 1;
+        return 2 * i + 1;
     }
 
     private static right(i: number): number {
-        return (2 * i) + 2;
+        return 2 * i + 2;
     }
 
     private last(): number | undefined {
@@ -105,20 +105,17 @@ export class PriorityHeap<PriorityHeapNodeType> implements IPriorityHeap<Priorit
         return result;
     }
 
-    private _describeHeapStructure(
-        index: number,
-        result: { from: PriorityHeapNodeType; to: PriorityHeapNodeType }[],
-    ) {
+    private _describeHeapStructure(index: number, result: { from: PriorityHeapNodeType; to: PriorityHeapNodeType }[]) {
         const left = PriorityHeap.left(index);
         const right = PriorityHeap.right(index);
         const last = this.size - 1;
 
         if (right <= last) {
-            result.push({from: this.tree[index], to: this.tree[right]});
+            result.push({ from: this.tree[index], to: this.tree[right] });
             this._describeHeapStructure(right, result);
         }
         if (left <= last) {
-            result.push({from: this.tree[index], to: this.tree[left]});
+            result.push({ from: this.tree[index], to: this.tree[left] });
             this._describeHeapStructure(left, result);
         }
     }

@@ -1,9 +1,9 @@
 /**
  * author: Ralph Varjabedian
  */
-import {IRunningCostsDataStructure} from "../interfaces/IRunningCostsDataStructure";
-import {RunningPathCost, Node} from "../typeDefs";
-import {PriorityHeap} from "../PriorityHeap";
+import { IRunningCostsDataStructure } from "../interfaces/IRunningCostsDataStructure";
+import { RunningPathCost, Node } from "../typeDefs";
+import { PriorityHeap } from "../PriorityHeap";
 
 /**
  * A heap data structure that determines the cheapest path to take
@@ -14,14 +14,10 @@ export class HeapRunningCosts implements IRunningCostsDataStructure {
 
     constructor(minHeap = true) {
         if (minHeap) {
-            this.heap = new PriorityHeap<RunningPathCost>((a, b) =>
-                a.cost > b.cost
-            );
+            this.heap = new PriorityHeap<RunningPathCost>((a, b) => a.cost > b.cost);
         } else {
             // Create max heap. This will find the longest path now vs the shortest
-            this.heap = new PriorityHeap<RunningPathCost>((a, b) =>
-                a.cost < b.cost
-            );
+            this.heap = new PriorityHeap<RunningPathCost>((a, b) => a.cost < b.cost);
         }
     }
 
@@ -34,13 +30,13 @@ export class HeapRunningCosts implements IRunningCostsDataStructure {
         // we need to ignore that and go past it by the usage of a custom visited hash
         let peeked = this.heap.peek();
         if (peeked === undefined) {
-            return undefined
+            return undefined;
         }
         while (this.visited[peeked.to]) {
             this.heap.pop();
             peeked = this.heap.peek();
             if (peeked === undefined) {
-                return undefined
+                return undefined;
             }
         }
         return this.heap.peek();
