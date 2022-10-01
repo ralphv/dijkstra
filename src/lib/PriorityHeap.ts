@@ -3,160 +3,123 @@
  */
 export type PriorityHeapCallback<PriorityHeapNode> = (nodeA: PriorityHeapNode, nodeB: PriorityHeapNode) => boolean;
 
-class PriorityHeapNode<PriorityHeapNodeType> {
-    node: PriorityHeapNodeType;
-    nextRight: PriorityHeapNode<PriorityHeapNodeType> | undefined;
-    nextLeft: PriorityHeapNode<PriorityHeapNodeType> | undefined;
-
-    constructor(node: PriorityHeapNodeType) {
-        this.node = node;
-    }
-}
-
 export interface IPriorityHeap<PriorityHeapNodeType> {
     describeHeapStructure(): { from: PriorityHeapNodeType; to: PriorityHeapNodeType }[];
 }
 
 export class PriorityHeap<PriorityHeapNodeType> implements IPriorityHeap<PriorityHeapNodeType> {
-    private tree: PriorityHeapNode<PriorityHeapNodeType> | undefined = undefined;
+    private tree: PriorityHeapNodeType[] = [];
+    private size = 0;
     private readonly priorityCallback: PriorityHeapCallback<PriorityHeapNodeType>;
 
     constructor(priorityCallback: PriorityHeapCallback<PriorityHeapNodeType>) {
         this.priorityCallback = priorityCallback;
     }
 
+    private static parent(i: number): number {
+        return Math.floor((i - 1) / 2);
+    }
+
+    private static left(i: number): number {
+        return (2 * i) + 1;
+    }
+
+    private static right(i: number): number {
+        return (2 * i) + 2;
+    }
+
+    private last(): number | undefined {
+        if (this.isEmpty()) {
+            return undefined;
+        }
+        return this.size - 1;
+    }
+
     push(node: PriorityHeapNodeType) {
-        if (this.tree === undefined) {
-            this.tree = new PriorityHeapNode<PriorityHeapNodeType>(node);
-            return;
-        }
-        const queue: PriorityHeapNode<PriorityHeapNodeType>[] = [];
-        queue.push(this.tree);
-        while (queue.length !== 0) {
-            const currentNode = queue.shift() as PriorityHeapNode<PriorityHeapNodeType>;
-            if (currentNode.nextLeft === undefined) {
-                currentNode.nextLeft = new PriorityHeapNode<PriorityHeapNodeType>(node);
-                break;
+        this.tree[this.size] = node;
+        this.size++;
+        let current = this.last() as number;
+        while (current > 0) {
+            const parent = PriorityHeap.parent(current);
+            if (this.priorityCallback(this.tree[parent], this.tree[current])) {
+                this.switch(current, parent);
             }
-            if (currentNode.nextRight === undefined) {
-                currentNode.nextRight = new PriorityHeapNode<PriorityHeapNodeType>(node);
-                break;
-            }
-            queue.push(currentNode.nextLeft);
-            queue.push(currentNode.nextRight);
+            current = parent;
         }
-        this.heapify();
+    }
+
+    peek(): PriorityHeapNodeType | undefined {
+        return this.isEmpty() ? undefined : this.tree[0];
+    }
+
+    pop(): PriorityHeapNodeType | undefined {
+        if (this.isEmpty()) {
+            return undefined;
+        }
+        const rootNode = this.tree[0];
+        const lastIndex = this.last() as number;
+
+        this.tree[0] = this.tree[lastIndex];
+        this.size--;
+        this.tree.length = this.size; // release memory
+
+        if (this.size > 1) {
+            this.heapify(0);
+        }
+        return rootNode;
+    }
+
+    isEmpty(): boolean {
+        return this.size === 0;
+    }
+
+    private switch(a: number, b: number) {
+        const temp = this.tree[a];
+        this.tree[a] = this.tree[b];
+        this.tree[b] = temp;
+    }
+
+    private heapify(index: number) {
+        const left = PriorityHeap.left(index);
+        const right = PriorityHeap.right(index);
+        const last = this.size - 1;
+
+        let priority = index;
+        if (right <= last && this.priorityCallback(this.tree[index], this.tree[right])) {
+            priority = right;
+        }
+        if (left <= last && this.priorityCallback(this.tree[priority], this.tree[left])) {
+            priority = left;
+        }
+        if (priority !== index) {
+            this.switch(priority, index);
+            this.heapify(priority); // go down one branch only if needed
+        }
     }
 
     describeHeapStructure(): { from: PriorityHeapNodeType; to: PriorityHeapNodeType }[] {
         const result: { from: PriorityHeapNodeType; to: PriorityHeapNodeType }[] = [];
-        this._describeHeapStructure(this.tree, result);
+        if (!this.isEmpty()) {
+            this._describeHeapStructure(0, result);
+        }
         return result;
     }
 
-    peek(): PriorityHeapNodeType | undefined {
-        return this.tree?.node;
-    }
-
-    pop(): PriorityHeapNodeType | undefined {
-        if (this.tree === undefined) {
-            return undefined;
-        }
-        if (PriorityHeap.isLeaf(this.tree)) {
-            const node = this.tree.node;
-            this.tree = undefined;
-            return node;
-        }
-        const node = this.tree.node;
-        const queue: PriorityHeapNode<PriorityHeapNodeType>[] = [];
-        queue.push(this.tree);
-        while (queue.length !== 0) {
-            const currentNode = queue.shift() as PriorityHeapNode<PriorityHeapNodeType>;
-            if (currentNode.nextRight !== undefined && PriorityHeap.isLeaf(currentNode.nextRight)) {
-                this.switchNodes(currentNode.nextRight, this.tree);
-                currentNode.nextRight = undefined;
-                break;
-            }
-            if (currentNode.nextLeft !== undefined && PriorityHeap.isLeaf(currentNode.nextLeft)) {
-                this.switchNodes(currentNode.nextLeft, this.tree);
-                currentNode.nextLeft = undefined;
-                break;
-            }
-            if (currentNode.nextRight !== undefined) {
-                queue.push(currentNode.nextRight);
-            }
-            if (currentNode.nextLeft !== undefined) {
-                queue.push(currentNode.nextLeft);
-            }
-        }
-        this.heapify();
-        return node;
-    }
-
-    isEmpty() {
-        return this.tree !== null;
-    }
-
-    private static isLeaf(node: PriorityHeapNode<unknown> | undefined) {
-        return node !== undefined && node.nextLeft === undefined && node.nextRight === undefined;
-    }
-
-    private heapify(): void {
-        if (this.tree === undefined) {
-            /* istanbul ignore next */
-            return;
-        }
-        this._heapify(this.tree);
-    }
-
-    private _heapify(traverse: PriorityHeapNode<PriorityHeapNodeType>) {
-        if (traverse.nextLeft === undefined && traverse.nextRight === undefined) {
-            // leaf node
-            return;
-        }
-        if (traverse.nextLeft !== undefined) {
-            this._heapify(traverse.nextLeft);
-        }
-        if (traverse.nextRight !== undefined) {
-            this._heapify(traverse.nextRight);
-        }
-        if (traverse.nextRight !== undefined && traverse.nextLeft !== undefined) {
-            // compare right to left first
-            const rightHigher = this.priorityCallback(traverse.nextLeft.node, traverse.nextRight.node);
-            if (rightHigher) {
-                this.switchNodes(traverse.nextRight, traverse.nextLeft);
-            }
-        }
-        if (traverse.nextLeft !== undefined) {
-            // to keep TS happy
-            // compare left to parent
-            const rightHigher = this.priorityCallback(traverse.node, traverse.nextLeft.node);
-            if (rightHigher) {
-                this.switchNodes(traverse, traverse.nextLeft);
-            }
-        }
-    }
-
-    private switchNodes(node1: PriorityHeapNode<PriorityHeapNodeType>, node2: PriorityHeapNode<PriorityHeapNodeType>) {
-        const temp = node1.node;
-        node1.node = node2.node;
-        node2.node = temp;
-    }
-
     private _describeHeapStructure(
-        node: PriorityHeapNode<PriorityHeapNodeType> | undefined,
+        index: number,
         result: { from: PriorityHeapNodeType; to: PriorityHeapNodeType }[],
     ) {
-        if (node === undefined) {
-            return;
+        const left = PriorityHeap.left(index);
+        const right = PriorityHeap.right(index);
+        const last = this.size - 1;
+
+        if (right <= last) {
+            result.push({from: this.tree[index], to: this.tree[right]});
+            this._describeHeapStructure(right, result);
         }
-        if (node.nextLeft) {
-            result.push({ from: node.node, to: node.nextLeft.node });
-            this._describeHeapStructure(node.nextLeft, result);
-        }
-        if (node.nextRight) {
-            result.push({ from: node.node, to: node.nextRight.node });
-            this._describeHeapStructure(node.nextRight, result);
+        if (left <= last) {
+            result.push({from: this.tree[index], to: this.tree[left]});
+            this._describeHeapStructure(left, result);
         }
     }
 }
