@@ -52,29 +52,32 @@ const shortestPathTree = algorithm.process("0", graph, runningCosts);
 
 // Print sample path traversals
 [
-  ["0", "8"],
-  ["0", "4"],
-  ["0", "1"],
-  ["0", "6"],
-  ["0", "7"],
-  ["6", "4"],
-  ["1", "6"]
+    ["0", "8"],
+    ["0", "4"],
+    ["0", "1"],
+    ["0", "6"],
+    ["0", "7"],
+    ["6", "4"],
+    ["1", "6"],
 ].forEach(([from, to]) => {
-  const path = shortestPathTree.traversePath(from, to);
-  if (!path) {
-    console.log(`Path from [${from}] => [${to}]: does not exist`);
-  } else {
-    console.log(`Path from [${from}] => [${to}]: ${JSON.stringify(path)}`);
-  }
+    const path = shortestPathTree.traversePath(from, to);
+    if (!path) {
+        console.log(`Path from [${from}] => [${to}]: does not exist`);
+    } else {
+        console.log(`Path from [${from}] => [${to}]: ${JSON.stringify(path)}`);
+    }
 });
 
-fs.writeFileSync("./graphs/appPrim-input-graph.puml",
-  GraphPlantUMLPrinter.generateContents("0", graph, false, (edge) => `${edge.cost}`));
 fs.writeFileSync(
-  `./graphs/appPrim-${findLongestPath ? "max" : "min"}-spanning-tree.puml`,
-  GraphPlantUMLPrinter.generateContents(
-    "0",
-    shortestPathTree,
-    true,
-    (edge) => `${edge.cost} (Σ=${edge.toMeta.runningCost})`)
+    "./graphs/appPrim-input-graph.puml",
+    GraphPlantUMLPrinter.generateContents("0", graph, false, (edge) => `${edge.cost}`),
+);
+fs.writeFileSync(
+    `./graphs/appPrim-${findLongestPath ? "max" : "min"}-spanning-tree.puml`,
+    GraphPlantUMLPrinter.generateContents(
+        "0",
+        shortestPathTree,
+        true,
+        (edge) => `${edge.cost} (Σ=${edge.toMeta.runningCost})`,
+    ),
 );

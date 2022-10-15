@@ -34,6 +34,11 @@ const shortestPathTree = algorithm.process(firstNode, graph, runningCosts);
     );
     fs.writeFileSync(
         `./graphs/appPrimRandom-${findLongestPath ? "max" : "min"}-spanning-tree.puml`,
-        GraphPlantUMLPrinter.generateContents(firstNode, shortestPathTree, true, (edge) => `${edge.cost} (Σ=${edge.toMeta.runningCost})`),
+        GraphPlantUMLPrinter.generateContents(
+            firstNode,
+            shortestPathTree,
+            true,
+            (edge) => `${edge.cost} (Σ=${edge.toMeta.runningCost})`,
+        ),
     );
 })();

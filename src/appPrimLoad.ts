@@ -33,6 +33,11 @@ import { HeapRunningCosts } from "./lib/implementations/HeapRunningCosts";
     );
     fs.writeFileSync(
         `./graphs/appPrimLoad-${findLongestPath ? "max" : "min"}-spanning-tree.puml`,
-        GraphPlantUMLPrinter.generateContents(firstNode, shortestPathTree, true, (edge) => `${edge.cost} (Σ=${edge.toMeta.runningCost})`),
+        GraphPlantUMLPrinter.generateContents(
+            firstNode,
+            shortestPathTree,
+            true,
+            (edge) => `${edge.cost} (Σ=${edge.toMeta.runningCost})`,
+        ),
     );
 })();
