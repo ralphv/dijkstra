@@ -29,10 +29,15 @@ import { HeapRunningCosts } from "./lib/implementations/HeapRunningCosts";
 
     fs.writeFileSync(
         "./graphs/appPrimLoad-input-graph.puml",
-        GraphPlantUMLPrinter.generateContents(firstNode, graph, false),
+        GraphPlantUMLPrinter.generateContents(firstNode, graph, false, (edge) => `${edge.cost}`),
     );
     fs.writeFileSync(
         `./graphs/appPrimLoad-${findLongestPath ? "max" : "min"}-spanning-tree.puml`,
-        GraphPlantUMLPrinter.generateContents(firstNode, shortestPathTree, true),
+        GraphPlantUMLPrinter.generateContents(
+            firstNode,
+            shortestPathTree,
+            true,
+            (edge) => `${edge.cost} (Σ=${edge.toMeta.runningCost})`,
+        ),
     );
 })();

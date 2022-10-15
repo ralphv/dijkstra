@@ -1,0 +1,24 @@
+@startdot
+digraph a {
+    label = "Graph-Tricky: input"
+    labelloc  =  t
+    fontsize  = 25
+    fontcolor = blue
+
+    fontname="Helvetica,Arial,sans-serif"
+    node [fontname="Helvetica,Arial,sans-serif"]
+    edge [fontname="Helvetica,Arial,sans-serif"]
+    rankdir=LR;
+    node [shape = circle];
+    edge[arrowhead="none"];
+    0 -> 1 [label = "2", minlen=2];
+    0 -> 2 [label = "1", minlen=1];
+    1 -> 8 [label = "2", minlen=2];
+    2 -> 3 [label = "1", minlen=1];
+    3 -> 4 [label = "1", minlen=1];
+    4 -> 5 [label = "1", minlen=1];
+    5 -> 6 [label = "1", minlen=1];
+    6 -> 7 [label = "1", minlen=1];
+    7 -> 8 [label = "1", minlen=1];
+}
+@enddot

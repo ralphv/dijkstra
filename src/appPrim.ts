@@ -68,8 +68,16 @@ const shortestPathTree = algorithm.process("0", graph, runningCosts);
     }
 });
 
-fs.writeFileSync("./graphs/appPrim-input-graph.puml", GraphPlantUMLPrinter.generateContents("0", graph, false));
+fs.writeFileSync(
+    "./graphs/appPrim-input-graph.puml",
+    GraphPlantUMLPrinter.generateContents("0", graph, false, (edge) => `${edge.cost}`),
+);
 fs.writeFileSync(
     `./graphs/appPrim-${findLongestPath ? "max" : "min"}-spanning-tree.puml`,
-    GraphPlantUMLPrinter.generateContents("0", shortestPathTree, true),
+    GraphPlantUMLPrinter.generateContents(
+        "0",
+        shortestPathTree,
+        true,
+        (edge) => `${edge.cost} (Σ=${edge.toMeta.runningCost})`,
+    ),
 );

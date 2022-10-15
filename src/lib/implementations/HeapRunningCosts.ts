@@ -14,10 +14,10 @@ export class HeapRunningCosts implements IRunningCostsDataStructure {
 
     constructor(minHeap = true) {
         if (minHeap) {
-            this.heap = new PriorityHeap<RunningPathCost>((a, b) => a.cost > b.cost);
+            this.heap = new PriorityHeap<RunningPathCost>((a, b) => a.runningCost > b.runningCost);
         } else {
             // Create max heap. This will find the longest path now vs the shortest
-            this.heap = new PriorityHeap<RunningPathCost>((a, b) => a.cost < b.cost);
+            this.heap = new PriorityHeap<RunningPathCost>((a, b) => a.runningCost < b.runningCost);
         }
     }
 

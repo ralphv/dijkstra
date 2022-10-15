@@ -1,7 +1,7 @@
 /**
  * author: Ralph Varjabedian
  */
-import { Edge, Node, Path } from "../typeDefs";
+import { Cost, Edge, Node, Path } from "../typeDefs";
 
 export interface IGraph<MetaType> {
     /**
@@ -61,7 +61,7 @@ export interface IGraph<MetaType> {
      * @param from the start
      * @param to the end
      */
-    traversePath(from: Node, to: Node): { node: Node; runningCost: number }[] | null;
+    traversePath(from: Node, to: Node): { node: Node; runningCost: Cost }[] | null;
 
     /**
      * Gets the full list of nodes available

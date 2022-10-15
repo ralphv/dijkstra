@@ -2,11 +2,16 @@
  * author: Ralph Varjabedian
  */
 import { IGraph } from "./interfaces/IGraph";
-import { Node } from "./typeDefs";
+import { Edge, Node } from "./typeDefs";
 import { EOL } from "os";
 
 export class GraphPlantUMLPrinter {
-    public static generateContents(start: Node, graph: IGraph<unknown>, directional: boolean, addLength = true) {
+    public static generateContents<MetaType>(
+        start: Node,
+        graph: IGraph<MetaType>,
+        directional: boolean,
+        labelCallable: (edge: Edge<MetaType>) => string,
+    ) {
         // redistribute the relative values of the costs to a linear one for nicer looking graphs
         const costsHash: { [key: number]: string } = [
             ...new Set(graph.getAllPaths(directional).map(({ cost }) => cost)),
@@ -19,8 +24,8 @@ export class GraphPlantUMLPrinter {
                 };
             }, {});
         const steps = graph.getAllPaths(directional).map((edge) => {
-            return `${edge.from} -> ${edge.to} [label = "${edge.cost}"${
-                addLength ? ", minlen=" + costsHash[edge.cost] : ""
+            return `${edge.from} -> ${edge.to} [label = "${labelCallable(edge)}"${
+                ", minlen=" + costsHash[edge.cost]
             }];`;
         });
         return `@startdot

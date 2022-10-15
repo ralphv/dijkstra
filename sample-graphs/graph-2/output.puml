@@ -11,13 +11,13 @@ digraph a {
     rankdir=LR;
     node [shape = circle];
     edge[arrowhead="normal"];
-    1 -> 5 [label = "5", minlen=4];
-    3 -> 2 [label = "5", minlen=4];
-    5 -> 7 [label = "2", minlen=1];
-    7 -> 3 [label = "4", minlen=3];
-    7 -> 8 [label = "6", minlen=5];
-    7 -> 9 [label = "3", minlen=2];
-    9 -> 4 [label = "3", minlen=2];
-    9 -> 6 [label = "2", minlen=1];
+    1 -> 4 [label = "7 (Σ=7)", minlen=6];
+    1 -> 5 [label = "5 (Σ=5)", minlen=4];
+    1 -> 7 [label = "5 (Σ=5)", minlen=4];
+    3 -> 2 [label = "5 (Σ=14)", minlen=4];
+    7 -> 3 [label = "4 (Σ=9)", minlen=3];
+    7 -> 8 [label = "6 (Σ=11)", minlen=5];
+    7 -> 9 [label = "3 (Σ=8)", minlen=2];
+    9 -> 6 [label = "2 (Σ=10)", minlen=1];
 }
 @enddot

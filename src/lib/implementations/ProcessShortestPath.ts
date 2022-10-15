@@ -4,10 +4,10 @@
 import { IProcessShortestPath } from "./IProcessShortestPath";
 import { IGraph } from "../interfaces/IGraph";
 import { IRunningCostsDataStructure } from "../interfaces/IRunningCostsDataStructure";
-import { Node } from "../typeDefs";
+import { Cost, Node } from "../typeDefs";
 import { Graph } from "./Graph";
 
-export type ShortestPathTreeMeta = { cost: number; runningCost: number };
+export type ShortestPathTreeMeta = { runningCost: Cost };
 
 export class ProcessShortestPath implements IProcessShortestPath<ShortestPathTreeMeta> {
     process(
@@ -17,7 +17,7 @@ export class ProcessShortestPath implements IProcessShortestPath<ShortestPathTre
     ): IGraph<ShortestPathTreeMeta> {
         const shortestPathTree = new Graph<ShortestPathTreeMeta>(true);
         // add the initial node with zero to the running costs
-        runningCosts.add({ from: start, to: start, cost: 0 });
+        runningCosts.add({ from: start, to: start, cost: 0, runningCost: 0 });
         // keep track of the last node we visited
         while (true) {
             // pick the next travel path candidate (cheapest)
@@ -28,14 +28,9 @@ export class ProcessShortestPath implements IProcessShortestPath<ShortestPathTre
 
             // add new node destination (to) and the path we will travel to it (from -> to) with cost
             shortestPathTree.addNode(pathToTake.to, {
-                cost: pathToTake.cost,
-                runningCost:
-                    pathToTake.cost +
-                    (shortestPathTree.hasNode(pathToTake.from)
-                        ? shortestPathTree.getNodeMeta(pathToTake.from).runningCost
-                        : 0),
+                runningCost: pathToTake.runningCost,
             });
-            if (pathToTake.cost !== 0) {
+            if (pathToTake.runningCost !== 0) {
                 shortestPathTree.addPath(pathToTake.from, { to: pathToTake.to, cost: pathToTake.cost });
             }
             runningCosts.markNodeVisited(pathToTake.to);
@@ -44,7 +39,12 @@ export class ProcessShortestPath implements IProcessShortestPath<ShortestPathTre
             graph
                 .getPathsOfNode(pathToTake.to)
                 .filter((a) => !shortestPathTree.hasNode(a.to))
-                .map((a) => ({ from: pathToTake.to, to: a.to, cost: a.cost }))
+                .map((a) => ({
+                    from: pathToTake.to,
+                    to: a.to,
+                    cost: a.cost,
+                    runningCost: a.cost + pathToTake.runningCost,
+                }))
                 .forEach((a) => {
                     runningCosts.add(a);
                 });
