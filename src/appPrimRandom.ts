@@ -30,10 +30,10 @@ const shortestPathTree = algorithm.process(firstNode, graph, runningCosts);
     await graph.save("./graphs/appPrimRandom-graph.json");
     fs.writeFileSync(
         "./graphs/appPrimRandom-input-graph.puml",
-        GraphPlantUMLPrinter.generateContents(firstNode, graph, false),
+        GraphPlantUMLPrinter.generateContents(firstNode, graph, false, (edge) => `${edge.cost}`),
     );
     fs.writeFileSync(
         `./graphs/appPrimRandom-${findLongestPath ? "max" : "min"}-spanning-tree.puml`,
-        GraphPlantUMLPrinter.generateContents(firstNode, shortestPathTree, true),
+        GraphPlantUMLPrinter.generateContents(firstNode, shortestPathTree, true, (edge) => `${edge.cost} (Σ=${edge.toMeta.runningCost})`),
     );
 })();

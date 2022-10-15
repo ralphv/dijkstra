@@ -21,7 +21,7 @@ export class LinearRunningCosts implements IRunningCostsDataStructure {
 
     getNextCheapestPathToTake(): RunningPathCost | undefined {
         const result = this.data.reduce((currentLowest: undefined | RunningPathCost, instance) => {
-            if (currentLowest === undefined || instance.cost < currentLowest.cost) {
+            if (currentLowest === undefined || instance.runningCost < currentLowest.runningCost) {
                 currentLowest = instance;
             }
             return currentLowest;
